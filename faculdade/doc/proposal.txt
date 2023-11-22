@@ -1,0 +1,73 @@
+Crie um banco de dados para esta atividade (Atv3) 
+
+• Neste banco de dados, crie 2 tabelas, como segue: 
+
+CURSOS [ Código, Nome, NumMatr ] 
+
+TURMAS [Código, Matricula] 
+
+
+• Considere os seguintes critérios de consistência:
+
+O código de cada curso é único. 
+Todo o código existente em Turmas deve estar presente em Cursos. 
+O atributo NumMatr presente em CURSOS indica o número de alunos matriculados em cada curso 
+
+
+• Crie as transações de matrícula de alunos, cancelamento de curso e listagens, conforme instruções a seguir:
+
+1. Matricule (m,c) 
+
+Início_Trans 
+
+[M1] LER t de Cursos onde Código = c; 
+
+Se existe t então 
+
+[M2] GRAVE a tupla (m,c) em Turmas; 
+
+NumMatr = NumMatr + 1; 
+
+[M3] GRAVE t em Cursos; 
+
+Fim se 
+
+Fim_Trans. 
+
+
+
+2. Cancele (c) 
+
+Início_Trans 
+
+[C1] Delete t de Cursos onde Código = c; 
+
+[C2] Delete as tuplas de Turmas onde Código= c; 
+
+Fim_Trans. 
+
+
+
+3. Liste (m) 
+
+Início_Trans 
+
+[L1] LER as tuplas de Turmas onde Matricula= m; 
+
+Liste tuplas lidas; 
+
+[L2] LER as tuplas de Cursos onde o código seja igual aos códigos lidos anteriormente ; 
+
+Liste tuplas; 
+
+Fim_Trans.
+
+Agora, elabore um plano de execução “serializável” que permita a concorrência das seguintes transações: 
+
+• Crie o curso 1 
+
+• Matricule o aluno X no curso 1 
+
+• Matricule o aluno Z no curso 1 
+
+• Liste as matrículas do aluno X 
